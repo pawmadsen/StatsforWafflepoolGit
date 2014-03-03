@@ -1,0 +1,181 @@
+﻿@model StatsForWafflepool.ViewModels.HomeVm
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-dismissable alert-info text-center">
+            <h4>
+                All DateTime's are now stored as UTC, therefor the graphs will show a backwards line in time, as the old times where UTC +1.
+            </h4>
+        </div>
+    </div>
+</div>
+
+@if (Request.IsAuthenticated)
+{
+    <div class="row">
+        <div class="col-md-4 well text-center">
+            @Html.DisplayFor(x => x.User.Address)
+        </div>
+        <div class="col-md-3 well text-center">
+            Current MH/s : @Html.DisplayFor(x => x.CurrentHash)
+        </div>
+        <div class="col-md-3 well text-center">
+            Avg MH/s 4 hours: @Html.DisplayFor(x => x.AvghashFourHours)
+        </div>
+        <div class="col-md-2 well text-center">
+           Total users: @Html.DisplayFor(x => x.TotalUsers)
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-md-4 well text-center">
+            Avg earnings per day: @Html.DisplayFor(x => x.AvgEarningsPerDay)
+        </div>
+        <div class="col-md-3 well text-center">
+            Avg MH/s alltime: @Html.DisplayFor(x => x.AvghashAlltime)
+        </div>
+        <div class="col-md-5 well text-center">
+            Avg MH/s 24 hours: @Html.DisplayFor(x => x.AvghashTwentyFourHours)
+        </div>
+            
+    </div>
+     <div class="row">
+        <div class="col-md-4 well text-center">
+            Bitcoins per MH/s: @Html.DisplayFor(x => x.BcPerMh)
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @(Model.Chart1)
+        </div>
+    </div>
+    <hr/>
+
+    <div class="row">
+        <div class="col-md-12">
+            @(Model.Chart2)
+        </div>
+    </div>
+        <hr/>
+    <div class="row">
+        <div class="col-md-12">
+            @(Model.Chart4)
+        </div>
+    </div>
+        <hr/>
+    <div class="row">
+        <div class="col-md-12">
+            @(Model.Chart3)
+        </div>
+    </div>
+        <hr/>
+    <div class="row">
+        <div class="col-md-12 text-center well">
+            <h3>
+              Recent Payouts  
+            </h3>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-2">
+                            @Html.Label("Amount")
+                        </th>
+                        <th class="col-md-3">
+                            @Html.Label("Date")
+                        </th>
+                        <th class="col-md-7">
+                            @Html.Label("TxNo")
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var payout in Model.RecentPayments)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(x => payout.amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => payout.time)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => payout.txn)
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well text-center">
+                <h3>
+                    Please register on the site if you want to log your wafflepool stats.
+                </h3>
+                <p>
+                    Stats are collected every 5 min.
+                </p>
+                <p>
+                    WARNING: site is in beta.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well text-center">
+                <h3>
+                    below are some screen shots from the site, when you log in.
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <img class="img-responsive" src="~/Content/images/ss1.png" />
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <img class="img-responsive" src="~/Content/images/ss2.png" />
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <img class="img-responsive" src="~/Content/images/ss3.png" />
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <img class="img-responsive" src="~/Content/images/ss4.png" />
+        </div>
+
+    </div>
+      <div class="row">
+        <div class="col-md-12">
+
+            <img class="img-responsive" src="~/Content/images/ss5.png" />
+        </div>
+
+    </div>
+}
